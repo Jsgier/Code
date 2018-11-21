@@ -12,16 +12,21 @@ to control other instruments over ethernet using SCPI.
 #----------------------------- Libraries ---------------------------------------
 #-------------------------------------------------------------------------------
 import telnetlib
+import visa
 
 #-------------------------------------------------------------------------------
 #------------------------------- Defines ---------------------------------------
 #-------------------------------------------------------------------------------
 oscilloscopeIPv6 = "fe80::477:e0e0:bc52:e628%61" #change for different instrument
-oscilloscopeIPv4 = "192.168.1.80"
+oscilloscopeIPv4 = "169.254.117."
 
 #-------------------------------------------------------------------------------
 #-------------------------------- Main -----------------------------------------
 #-------------------------------------------------------------------------------
+rm = visa.ResourceManager()
+rm.list_resources()
+
+"""
 try:
     with telnetlib.Telnet(oscilloscopeIPv4, 23) as oscilloscope:
         oscilloscope.write(":MEASure:ADISplay 1\n")
@@ -30,3 +35,4 @@ try:
 
 except ConnectionRefusedError as err:
     print("Target refused connection")
+"""
