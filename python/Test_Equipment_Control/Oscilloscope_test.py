@@ -6,33 +6,27 @@ an oscilloscope, specifically, the Rigol DS1054Z. It uses the telnetlib library
 to send SCPI commands to the ip address defined in the Defines section, which
 can be changed to suit a compatible oscilloscope. This code can also be adapted
 to control other instruments over ethernet using SCPI.
+
+Read the RigolDS1054Z Programming Guide Here:
+http://int.rigol.com/File/TechDoc/20151218/MSO1000Z&DS1000Z_ProgrammingGuide_EN.pdf
+
 """
 
 #-------------------------------------------------------------------------------
 #----------------------------- Libraries ---------------------------------------
 #-------------------------------------------------------------------------------
-import telnetlib
 import visa
 
 #-------------------------------------------------------------------------------
 #------------------------------- Defines ---------------------------------------
 #-------------------------------------------------------------------------------
-oscilloscopeIPv6 = "fe80::477:e0e0:bc52:e628%61" #change for different instrument
-oscilloscopeIPv4 = "169.254.117."
+oscilloscopeAddress = "TCPIP0::169.254.117.76::INSTR"
 
 #-------------------------------------------------------------------------------
 #-------------------------------- Main -----------------------------------------
 #-------------------------------------------------------------------------------
 rm = visa.ResourceManager()
-rm.list_resources()
-
-"""
 try:
-    with telnetlib.Telnet(oscilloscopeIPv4, 23) as oscilloscope:
-        oscilloscope.write(":MEASure:ADISplay 1\n")
-        oscilloscope.write(":MEASure:ADISPlay?\n")
-        print(oscilloscope.read_all())
-
-except ConnectionRefusedError as err:
-    print("Target refused connection")
-"""
+    oscilloscope = rm.get_instrument(oscilloscopeAddress)
+except:
+    print("Oscilloscope is not connected or refused connection.")
