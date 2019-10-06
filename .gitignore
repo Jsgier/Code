@@ -1,0 +1,7 @@
+*.lock
+*.old
+*.log
+*.snap
+*.prefs
+
+workspace_v8/
