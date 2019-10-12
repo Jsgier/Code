@@ -48,7 +48,7 @@ class PlotCanvas(FigureCanvas):
         fig = Figure(figsize=(width, height), dpi=dpi)
         self.axes = fig.add_subplot(111)
 
-        FigureCanvas.__init(self, fig)
+        FigureCanvas.__init__(self, fig)
         self.setParent(parent)
 
         FigureCanvas.setSizePolicy(self, QSizePolicy.Expanding, \
