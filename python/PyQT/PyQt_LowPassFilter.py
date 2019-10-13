@@ -6,7 +6,8 @@ from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMenu, \
- QHBoxLayout, QVBoxLayout, QSizePolicy, QLabel, QMessageBox, QPushButton, QWidget
+ QHBoxLayout, QVBoxLayout, QSizePolicy, QLabel, QMessageBox, \
+ QGridLayout, QPushButton, QWidget
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import pyqtSlot
 
@@ -32,17 +33,13 @@ class App(QWidget):
         solveButton.resize(140,100)
         solveButton.clicked.connect(self.on_click)
 
-        hbox = QHBoxLayout()
-        hbox.addStretch(1)
-        hbox.addWidget(m)
-        hbox.addWidget(solveButton)
+        grid = QGridLayout()
+        grid.setSpacing(10)
 
-        vbox = QVBoxLayout()
-        vbox.addStretch(1)
-        vbox.addLayout(hbox)
+        grid.addWidget(m, 1, 0)
+        grid.addWidget(solveButton, 2, 2)
 
-        self.setLayout(vbox)
-
+        self.setLayout(grid)
         self.setGeometry(self.left, self.top, self.width, self.height)
         self.setWindowTitle(self.title)
 
@@ -57,7 +54,6 @@ class App(QWidget):
 class PlotCanvas(FigureCanvas):
     def __init__(self, parent=None, width=5, height=4, dpi=100):
         fig = Figure(figsize=(width, height), dpi=dpi)
-        self.axes = fig.add_subplot(111)
 
         FigureCanvas.__init__(self, fig)
         self.setParent(parent)
