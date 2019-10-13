@@ -5,8 +5,8 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMenu, \
-        QVBoxLayout, QSizePolicy, QLabel, QMessageBox, QPushButton, QWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMenu, QHBoxLayout\
+QVBoxLayout, QSizePolicy, QLabel, QMessageBox, QPushButton, QWidget
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import pyqtSlot
 
@@ -23,17 +23,28 @@ class App(QWidget):
         self.initUI()
         
     def initUI(self):
-        self.setWindowTitle(self.title)
-        self.setGeometry(self.left, self.top, self.width, self.height)
-
         m = PlotCanvas(self, width=5, height=4)
         m.move(0,0)
 
-        button = QPushButton('Solve Filter', self)
-        button.setToolTip('Solve the equation for the low pass filter')
-        button.move(100, 70)
-        button.resize(140,100)
-        button.clicked.connect(self.on_click)
+        solveButton = QPushButton('Solve Filter', self)
+        solveButton.setToolTip('Solve the equation for the low pass filter')
+        solveButton.move(100, 70)
+        solveButton.resize(140,100)
+        solveButton.clicked.connect(self.on_click)
+
+        hbox = QHBoxLayout()
+        hbox.addStretch(1)
+        hbox.addWidget(m)
+        hbox.AddWidget(solveButton)
+
+        vbox = QVBoxLayout()
+        vbox.addStretch(1)
+        vbox.addLayout(hbox)
+
+        self.setLayout(vbox)
+
+        self.setGeometry(self.left, self.top, self.width, self.height)
+        self.setWindowTitle(self.title)
 
         self.show()
     
