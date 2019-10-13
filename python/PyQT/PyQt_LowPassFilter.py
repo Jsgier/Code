@@ -5,8 +5,8 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMenu, QHBoxLayout\
-QVBoxLayout, QSizePolicy, QLabel, QMessageBox, QPushButton, QWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMenu, \
+ QHBoxLayout, QVBoxLayout, QSizePolicy, QLabel, QMessageBox, QPushButton, QWidget
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import pyqtSlot
 
@@ -16,10 +16,10 @@ class App(QWidget):
     def __init__(self):
         super().__init__()
         self.title = "Low Pass Filter"
-        self.left = 10
-        self.top = 10
-        self.width = 320
-        self.height = 200
+        self.left = 200
+        self.top = 200
+        self.width = 500
+        self.height = 500
         self.initUI()
         
     def initUI(self):
@@ -35,7 +35,7 @@ class App(QWidget):
         hbox = QHBoxLayout()
         hbox.addStretch(1)
         hbox.addWidget(m)
-        hbox.AddWidget(solveButton)
+        hbox.addWidget(solveButton)
 
         vbox = QVBoxLayout()
         vbox.addStretch(1)
