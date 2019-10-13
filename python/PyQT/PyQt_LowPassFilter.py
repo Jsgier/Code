@@ -52,7 +52,7 @@ class App(QWidget):
         grid = QGridLayout()
         grid.setSpacing(10)
 
-        grid.addWidget(m, 0, 0, 3, 2) #add plot to 0,0 with width 2, height 3
+        grid.addWidget(self.bode, 0, 0, 3, 2) #add plot to 0,0 with width 2, height 3
         grid.addWidget(self.resistor, 4, 0) #resistor box at row 4 column 0
         grid.addWidget(self.capacitor, 4, 1) #capacitor box at row 4 column 1
         grid.addWidget(solveButton, 5, 0) #solve button at row 5, column 0
@@ -66,7 +66,7 @@ class App(QWidget):
     @pyqtSlot()
     def on_click(self):#, resistor, capacitor):
         print(self.resistor.text())
-        pole = 1 / (2* pi * int(self.resistor.text())* int(self.capacitor.text()))
+        pole = 1 / (2* pi * float(self.resistor.text())* float(self.capacitor.text()))
         s1 = signal.ZerosPolesGain = ([],[pole],[1])
         w, mag, phase = signal.bode(s1)
         PlotCanvas(self, s1 = s1)
@@ -85,7 +85,7 @@ class PlotCanvas(FigureCanvas):
             QSizePolicy.Expanding)
         
         FigureCanvas.updateGeometry(self)
-        self.bode_plot(self)
+        self.bode_plot(s1)
     
     def plot(self):
         data = [random.random() for i in range (25)]
@@ -94,10 +94,10 @@ class PlotCanvas(FigureCanvas):
         ax.set_title('Magnitude (dB) vs. Frequency [Hz]')
         self.draw
 
-    def bode_plot(self):
-        w, mag, phase = signal.bode(self.s1)
+    def bode_plot(self, s1):
+        w, mag, phase = signal.bode(s1)
         ax = self.figure.add_subplot(111)
-        ax.semilog(w, mag)
+        ax.semilogy(w, mag)
         ax.set_title('Magnitude (dB) vs. Frequency [Hz]')
         self.draw
 
