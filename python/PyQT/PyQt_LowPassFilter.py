@@ -69,7 +69,7 @@ class App(QWidget):
         pole = 1 / (2* pi * float(self.resistor.text())* float(self.capacitor.text()))
         s1 = signal.ZerosPolesGain = ([],[pole],[1])
         w, mag, phase = signal.bode(s1)
-        PlotCanvas(self, s1 = s1)
+        PlotCanvas.bode_plot(self, s1 = s1)
         print(pole)
         #do math here later
         #Add two input buttons for resistor and capacitor
@@ -85,7 +85,6 @@ class PlotCanvas(FigureCanvas):
             QSizePolicy.Expanding)
         
         FigureCanvas.updateGeometry(self)
-        self.bode_plot(s1)
     
     def plot(self):
         data = [random.random() for i in range (25)]
@@ -96,10 +95,12 @@ class PlotCanvas(FigureCanvas):
 
     def bode_plot(self, s1):
         w, mag, phase = signal.bode(s1)
-        ax = self.figure.add_subplot(111)
-        ax.semilogy(w, mag)
+        ax = self.fig.add_subplot(111)
+        ax.clear()
+        ax.set_yscale('linear')
+        ax.plot(w, mag)
         ax.set_title('Magnitude (dB) vs. Frequency [Hz]')
-        self.draw
+        self.draw()
 
 
 if __name__ == '__main__':
